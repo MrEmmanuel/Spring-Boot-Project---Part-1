@@ -3,16 +3,14 @@ package springbootpart1.springboot;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import springbootpart1.springboot.model.User;
 import springbootpart1.springboot.service.UserServiceImpl;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = Application.class)
 public class ApplicationTest {
 
-	private final UserServiceImpl userService;
+	UserServiceImpl userService;
+	UserServiceImpl mockService = mock(UserServiceImpl.class);
 
 	@Autowired
 	public ApplicationTest(UserServiceImpl userService) {
@@ -21,19 +19,27 @@ public class ApplicationTest {
 
 	@Test
 	void addUserTest() {
-		assertTrue(userService.addUser("Paul", "Pogba"));
+		doNothing().when(mockService).addUser("Paul", "Pogba");
+		mockService.addUser("Paul", "Pogba");
+		verify(mockService, times(1)).addUser("Paul","Pogba" );
 	}
 
 	@Test
 	void removeUserTest() {
-		long id = 121;
-		userService.addUser(id, "Mo", "Salah");
-		assertTrue(userService.removeUser(id));
+		long id = 1;
+		mockService.addUser(id, "Mo", "Salah");
+		doNothing().when(mockService).removeUser(1);
+		mockService.removeUser(1);
+		verify(mockService, times(1)).removeUser(1);
 	}
 
 	@Test
 	void getUserTest() {
-		assertEquals("Paul", userService.getUser(121));
+		long id = 3;
+		mockService.addUser(id, "Diego", "Jota");
+		doNothing().when(mockService).getUser(3);
+		mockService.getUser(3);
+		verify(mockService, times(1)).getUser(3);
 	}
 
 }
