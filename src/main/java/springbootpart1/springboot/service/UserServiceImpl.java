@@ -16,26 +16,21 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean addUser(String name, String surname) {
+    public void addUser(String name, String surname) {
         fakeRepo.insertUser(121, name, surname);
         System.out.println(name + " Entered");
-        return true;
     }
 
     @Override
-    public boolean removeUser(long id) {
+    public void removeUser(long id) {
             String name = fakeRepo.deleteUser(id);
             System.out.println(name+" Removed");
-
-            return true;
     }
 
     @Override
-    public String getUser(long id) {
+    public void getUser(long id) {
         String name =  fakeRepo.findUserById(id);
         System.out.println("Hello "+name);
-
-        return name;
     }
 
 }
