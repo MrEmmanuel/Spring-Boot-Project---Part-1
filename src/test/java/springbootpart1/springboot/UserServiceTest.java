@@ -13,7 +13,7 @@ public class UserServiceTest {
 	UserServiceImpl mockService = mock(UserServiceImpl.class);
 
 	@Autowired
-	public ApplicationTest(UserServiceImpl userService) {
+	public UserServiceTest(UserServiceImpl userService) {
 		this.userService = userService;
 	}
 
@@ -41,5 +41,4 @@ public class UserServiceTest {
 		mockService.getUser(3);
 		verify(mockService, times(1)).getUser(3);
 	}
-
 }
