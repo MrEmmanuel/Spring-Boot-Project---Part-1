@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import springbootpart1.springboot.service.UserServiceImpl;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = Application.class)
-public class ApplicationTest {
+@SpringBootTest(classes = UserService.class)
+public class UserServiceTest {
 
 	UserServiceImpl userService;
 	UserServiceImpl mockService = mock(UserServiceImpl.class);
