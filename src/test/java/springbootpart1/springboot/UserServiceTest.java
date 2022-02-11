@@ -14,12 +14,12 @@ import static org.mockito.Mockito.*;
 @SpringBootTest(classes = Application.class)
 public class UserServiceTest {
 
-	UserServiceImpl userService;
+	
 	UserServiceImpl mockService;
 	FakeRepo mockRepo;
 	@BeforeEach
 	public void setup(){
-		mockService = mock(UserServiceImpl.class);
+		mockService = mock(mockRepo);
 		mockRepo = new FakeRepo();
 	}
 
