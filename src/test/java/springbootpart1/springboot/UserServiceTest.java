@@ -19,7 +19,7 @@ public class UserServiceTest {
 	FakeRepo mockRepo;
 	@BeforeEach
 	public void setup(){
-		mockService = mock(mockRepo);
+		mockService = mock(FakeRepo.class);
 		mockRepo = new FakeRepo();
 	}
 
