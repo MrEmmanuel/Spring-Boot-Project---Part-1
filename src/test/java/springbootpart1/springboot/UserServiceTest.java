@@ -19,13 +19,13 @@ public class UserServiceTest {
 	FakeRepo mockRepo;
 	@BeforeEach
 	public void setup(){
-		mockService = mock(FakeRepo.class);
+		mockService = mock(UserServiceImpl.class);
 		mockRepo = new FakeRepo();
 	}
 
 	@Autowired
 	public UserServiceTest(UserServiceImpl userService) {
-		this.userService = userService;
+		this.mockService = userService;
 	}
 
 	@Test
