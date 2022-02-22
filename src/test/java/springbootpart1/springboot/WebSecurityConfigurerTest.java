@@ -21,6 +21,6 @@ public class WebSecurityConfigurerTest {
     public void securityTest() throws Exception {
         ResponseEntity<String> result = template.withBasicAuth("spring", "secret")
                 .getForEntity("/user", String.class);
-                result.getStatusCode();
+                assertEquals(HttpStatus.Series.CLIENT_ERROR, result.getStatusCode().series());
     }
 }
