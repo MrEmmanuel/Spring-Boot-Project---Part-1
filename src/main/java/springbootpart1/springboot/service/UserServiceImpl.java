@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void getUser(long id) {
         String name =  fakeRepo.findUserById(id);
-        
+
         try
         {
             System.out.println("Going to sleep for 5 Secs.. to simulate backend call.");
