@@ -77,4 +77,16 @@ public class UserServiceTest {
 	    assertNotNull(name);
 	    assertEquals("Tebogo",name);
     }
+
+    	@Test
+		void getUserFourTimes(){
+			long id = 1;
+			mockService.addUser(id, "Diego", "Jota");
+			doNothing().when(mockService).getUser(1);
+			mockService.getUser(1);
+			mockService.getUser(1);
+			mockService.getUser(1);
+			mockService.getUser(1);
+			verify(mockService, times(4)).getUser(1);
+		}
 }
