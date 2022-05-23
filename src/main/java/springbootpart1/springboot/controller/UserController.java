@@ -22,9 +22,7 @@ public class UserController {
 
     @GetMapping("/retrieve/{id}")
     public ResponseEntity<User> getUser(@PathVariable(value="id")long userId){
-
         return new ResponseEntity(fakeRepo.findUserById(userId), HttpStatus.OK);
-
     }
 
     @DeleteMapping("/remove/{id}")
@@ -32,9 +30,4 @@ public class UserController {
         fakeRepo.deleteUser(userId);
         return new ResponseEntity("Success!", HttpStatus.OK);
     }
-
-
-
 }
-
-
