@@ -9,10 +9,10 @@ import springbootpart1.springboot.dao.FakeRepo;
 @Service
 public class UserServiceImpl implements UserService{
 
-    private final FakeRepo fakeRepo;
+    private final FakeRepoInterface fakeRepo;
 
     @Autowired
-    public UserServiceImpl(@Qualifier("fakeRepo") FakeRepo fakeRepo) {
+    public UserServiceImpl(@Qualifier("fakeRepo") FakeRepoInterface fakeRepo) {
         this.fakeRepo = fakeRepo;
     }
 
