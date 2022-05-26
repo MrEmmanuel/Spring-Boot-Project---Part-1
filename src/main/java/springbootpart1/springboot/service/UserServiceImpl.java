@@ -30,9 +30,9 @@ public class UserServiceImpl implements UserService{
 
     @Cacheable("name")
     @Override
-    public void getUser(long id) {
+    public String getUser(long id) {
         String name =  fakeRepo.findUserById(id);
-
+        System.out.println("Hello "+name);
         try
         {
             System.out.println("Going to sleep for 5 Secs.. to simulate backend call.");
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService{
         {
             e.printStackTrace();
         }
-        System.out.println("Hello "+name);
+        return name;
     }
 
 }
