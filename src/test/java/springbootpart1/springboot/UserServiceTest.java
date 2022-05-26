@@ -38,7 +38,7 @@ public class UserServiceTest {
 	@Test
 	void removeUserTest() {
 		long id = 1;
-		mockService.addUser(id, "Mo", "Salah");
+		mockRepo.insertUser(id,"Mo", "Salah");
 		doNothing().when(mockService).removeUser(1);
 		mockService.removeUser(1);
 		verify(mockService, times(1)).removeUser(1);
@@ -47,7 +47,7 @@ public class UserServiceTest {
 	@Test
 	void getUserTest() {
 		long id = 3;
-		mockService.addUser(id, "Diego", "Jota");
+		mockRepo.insertUser(id,"Diego", "Jota");
 		doNothing().when(mockService).getUser(3);
 		mockService.getUser(3);
 		verify(mockService, times(1)).getUser(3);
@@ -79,14 +79,14 @@ public class UserServiceTest {
     }
 
     	@Test
-		void getUserFourTimes(){
-			long id = 1;
-			mockService.addUser(id, "Diego", "Jota");
-			doNothing().when(mockService).getUser(1);
-			mockService.getUser(1);
-			mockService.getUser(1);
-			mockService.getUser(1);
-			mockService.getUser(1);
-			verify(mockService, times(4)).getUser(1);
-		}
+	void getUserFourTimes(){
+		long id = 1;
+		mockRepo.insertUser(id,"Diego", "Jota");
+		doNothing().when(mockService).getUser(1);
+		mockService.getUser(1);
+		mockService.getUser(1);
+		mockService.getUser(1);
+		mockService.getUser(1);
+		verify(mockService, times(4)).getUser(1);
+	}
 }
