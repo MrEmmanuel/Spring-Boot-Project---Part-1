@@ -12,21 +12,20 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // COMPLETE CODE HERE
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         auth.inMemoryAuthentication()
                 .passwordEncoder(encoder)
-                .withUser("spring")
-                .password(encoder.encode("secret"))
+                .withUser("user")
+                .password(encoder.encode("password"))
                 .roles("USER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/user")
+                .antMatchers("/user/")
                 .authenticated()
-                .antMatchers("/user")
+                .antMatchers("/user/")
                 .permitAll()
                 .and()
                 .httpBasic();
