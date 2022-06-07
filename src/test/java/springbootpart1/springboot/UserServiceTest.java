@@ -46,11 +46,9 @@ public class UserServiceTest {
 
 	@Test
 	void getUserTest() {
-		long id = 3;
-		mockRepo.insertUser(id,"Diego", "Jota");
-		doNothing().when(mockService).getUser(3);
-		mockService.getUser(3);
-		verify(mockService, times(1)).getUser(3);
+		mockService.addUser("Diego","Jota");
+		mockService.getUser(121);
+		verify(mockService,times(1)).getUser(121);
 	}
 
 	@Test
@@ -81,8 +79,7 @@ public class UserServiceTest {
     	@Test
 	void getUserFourTimes(){
 		long id = 1;
-		mockRepo.insertUser(id,"Diego", "Jota");
-		doNothing().when(mockService).getUser(1);
+		mockRepo.insertUser(id,"Oreneile", "Emmanuel");
 		mockService.getUser(1);
 		mockService.getUser(1);
 		mockService.getUser(1);
