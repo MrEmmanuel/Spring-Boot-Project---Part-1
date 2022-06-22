@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import springbootpart1.springboot.dao.FakeRepo;
+import springbootpart1.springboot.dao.FakeRepoInterface;
 
 @Service
 public class UserServiceImpl implements UserService{
