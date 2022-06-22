@@ -14,19 +14,19 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping(path = "/add/{id}")
+    @PostMapping(path = "/{id}")
     public ResponseEntity<String> addUser(@RequestBody String userName){
         userService.addUser(userName.split(" ")[0],userName.split(" ")[1]);
         return new ResponseEntity("Success!", HttpStatus.CREATED);
     }
 
-    @GetMapping(path = "/retrieve/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<String> getUser(@PathVariable(value="id")long userId){
         return new ResponseEntity(userService.getUser(userId), HttpStatus.OK);
 
     }
 
-    @DeleteMapping(path = "/remove/{id}")
+    @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable(value ="id") long userId){
         userService.removeUser(userId);
         return new ResponseEntity("Success!", HttpStatus.OK);

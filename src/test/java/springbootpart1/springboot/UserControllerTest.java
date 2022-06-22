@@ -1,20 +1,22 @@
 package springbootpart1.springboot;
 
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import springbootpart1.springboot.controller.UserController;
+
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@WebMvcTest(UserController.class)
+@RunWith(SpringRunner.class)
+@SpringBootTest
 @AutoConfigureMockMvc
 public class UserControllerTest {
 
@@ -23,20 +25,18 @@ public class UserControllerTest {
 
     @Test
     public void addUserTest() throws Exception {
-        mockMvc.perform(put("/add/{id}", 13)
-                .contentType(MediaType.APPLICATION_JSON_VALUE).content("Sadio Mane"))
+        mockMvc.perform(post("/user/{id}", 1)
+                .contentType(MediaType.APPLICATION_JSON_VALUE).content("Sadio Mane")).andDo(print())
                 .andExpect(status().isCreated());
     }
     @Test
     public void getUserTest() throws Exception {
-        mockMvc.perform(get("/retrieve/{id}",13)
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk());
+        mockMvc.perform(get("/user/{id}",1)).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
     public void deleteUserTest() throws Exception {
-        mockMvc.perform(delete("/remove/{id}",13)
+        mockMvc.perform(delete("/user/{id}",1)
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isOk());
     }
