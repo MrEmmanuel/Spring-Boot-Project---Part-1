@@ -1,89 +1,59 @@
 package springbootpart1.springboot;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import springbootpart1.springboot.dao.FakeRepo;
+import springbootpart1.springboot.dao.FakeRepoInterface;
+import springbootpart1.springboot.service.UserService;
 import springbootpart1.springboot.service.UserServiceImpl;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = Application.class)
 public class UserServiceTest {
 
-	
-	UserServiceImpl mockService;
-	FakeRepo mockRepo;
+	@Mock
+	FakeRepoInterface mockRepo;
+	UserService mockService;
+
 	@BeforeEach
 	public void setup(){
-		mockService = mock(UserServiceImpl.class);
-		mockRepo = new FakeRepo();
-	}
-
-	@Autowired
-	public UserServiceTest(UserServiceImpl userService) {
-		this.mockService = userService;
+		mockService = new UserServiceImpl(mockRepo);
 	}
 
 	@Test
+	@DisplayName("This test should add a user")
 	void addUserTest() {
-		doNothing().when(mockService).addUser("Paul", "Pogba");
 		mockService.addUser("Paul", "Pogba");
-		verify(mockService, times(1)).addUser("Paul","Pogba" );
+		verify(mockRepo, times(1)).insertUser(121,"Paul","Pogba" );
 	}
 
 	@Test
+	@DisplayName("This test should remove a user")
 	void removeUserTest() {
-		long id = 1;
-		mockRepo.insertUser(id,"Mo", "Salah");
-		doNothing().when(mockService).removeUser(1);
-		mockService.removeUser(1);
-		verify(mockService, times(1)).removeUser(1);
+		mockService.removeUser(121);
+		verify(mockRepo, times(1)).deleteUser(121);
 	}
 
-	@Test
-	void getUserTest() {
-		mockService.addUser("Diego","Jota");
-		mockService.getUser(121);
-		verify(mockService,times(1)).getUser(121);
-	}
 
 	@Test
-	void insertUserTest() {
-        String name = mockRepo.insertUser(37, "Sadio", "Mane");
-        assertNotNull(name);
-        assertEquals("Sadio", name);
-
-	}
-
-	@Test
-	void findUserByIdTest(){
-	    mockRepo.insertUser(121, "Sadio", "Mane");
-	    String name = mockRepo.findUserById(121);
-	    assertNotNull(name);
-	    assertEquals("Sadio", name);
+	@DisplayName("This test should get user by id")
+	void getUserTest(){
+	    mockService.addUser("Sadio", "Mane");
+	    mockService.getUser(121);
+	    verify(mockRepo, times(1)).findUserById(121);
 
     }
 
-    	@Test
-    	void deleteUserTest(){
-	    mockRepo.insertUser(95,"Tebogo", "Mane");
-	    String name = mockRepo.deleteUser(95);
-	    assertNotNull(name);
-	    assertEquals("Tebogo",name);
-    }
 
-    	@Test
+    @Test
+	@DisplayName("This test should simulate the backend call 4 times")
 	void getUserFourTimes(){
-		long id = 1;
-		mockRepo.insertUser(id,"Oreneile", "Emmanuel");
-		mockService.getUser(1);
-		mockService.getUser(1);
-		mockService.getUser(1);
-		mockService.getUser(1);
-		verify(mockService, times(4)).getUser(1);
+		mockService.getUser(121);
+		mockService.getUser(121);
+		mockService.getUser(121);
+		mockService.getUser(121);
+		verify(mockRepo, times(4)).findUserById(121);
 	}
 }

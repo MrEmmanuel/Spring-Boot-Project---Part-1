@@ -14,7 +14,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping(path = "/{id}")
+    @PutMapping("/add")
     public ResponseEntity<String> addUser(@RequestBody String userName){
         userService.addUser(userName.split(" ")[0],userName.split(" ")[1]);
         return new ResponseEntity("Success!", HttpStatus.CREATED);

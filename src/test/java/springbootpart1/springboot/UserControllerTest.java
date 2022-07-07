@@ -25,7 +25,7 @@ public class UserControllerTest {
 
     @Test
     public void addUserTest() throws Exception {
-        mockMvc.perform(post("/user/{id}", 1)
+        mockMvc.perform(put("/user/add")
                 .contentType(MediaType.APPLICATION_JSON_VALUE).content("Sadio Mane")).andDo(print())
                 .andExpect(status().isCreated());
     }
