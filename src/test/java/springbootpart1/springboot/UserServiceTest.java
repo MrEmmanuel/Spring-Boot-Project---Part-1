@@ -15,34 +15,34 @@ public class UserServiceTest {
 
 	@Mock
 	FakeRepoInterface mockRepo;
-	UserService mockService;
+	UserService userService;
 
 	@BeforeEach
 	public void setup(){
-		mockService = new UserServiceImpl(mockRepo);
+		userService = new UserServiceImpl(mockRepo);
 	}
 
 	@Test
 	@DisplayName("This test should add a user")
 	void addUserTest() {
-		mockService.addUser("Paul", "Pogba");
+		userService.addUser("Paul", "Pogba");
 		verify(mockRepo, times(1)).insertUser(121,"Paul","Pogba" );
 	}
 
 	@Test
 	@DisplayName("This test should remove a user")
 	void removeUserTest() {
-		mockService.removeUser(121);
-		verify(mockRepo, times(1)).deleteUser(121);
+		userService.removeUser(100);
+		verify(mockRepo, times(1)).deleteUser(100);
 	}
 
 
 	@Test
 	@DisplayName("This test should get user by id")
 	void getUserTest(){
-	    mockService.addUser("Sadio", "Mane");
-	    mockService.getUser(121);
-	    verify(mockRepo, times(1)).findUserById(121);
+	    userService.addUser("Sadio", "Mane");
+	    userService.getUser(11);
+	    verify(mockRepo, times(1)).findUserById(11);
 
     }
 
@@ -50,10 +50,10 @@ public class UserServiceTest {
     @Test
 	@DisplayName("This test should simulate the backend call 4 times")
 	void getUserFourTimes(){
-		mockService.getUser(121);
-		mockService.getUser(121);
-		mockService.getUser(121);
-		mockService.getUser(121);
+		userService.getUser(121);
+		userService.getUser(121);
+		userService.getUser(121);
+		userService.getUser(121);
 		verify(mockRepo, times(4)).findUserById(121);
 	}
 }
