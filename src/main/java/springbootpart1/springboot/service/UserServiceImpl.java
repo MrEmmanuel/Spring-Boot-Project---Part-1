@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import springbootpart1.springboot.dao.FakeRepoInterface;
+import springbootpart1.springboot.repository.FakeRepoInterface;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void addUser(String name, String surname) {
-        fakeRepo.insertUser(121, name, surname);
+        fakeRepo.insertUser(name, surname);
         System.out.println(name + " Entered");
     }
 
@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService{
     @Override
     public String getUser(long id) {
         String name =  fakeRepo.findUserById(id);
-        System.out.println("Hello "+name);
         try
         {
             System.out.println("Going to sleep for 5 Secs.. to simulate backend call.");

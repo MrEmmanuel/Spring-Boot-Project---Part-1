@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import springbootpart1.springboot.dao.FakeRepoInterface;
+import springbootpart1.springboot.repository.FakeRepoInterface;
 import springbootpart1.springboot.service.UserService;
 import springbootpart1.springboot.service.UserServiceImpl;
 import static org.mockito.Mockito.*;
@@ -26,7 +26,7 @@ public class UserServiceTest {
 	@DisplayName("This test should add a user")
 	void addUserTest() {
 		userService.addUser("Paul", "Pogba");
-		verify(mockRepo, times(1)).insertUser(121,"Paul","Pogba" );
+		verify(mockRepo, times(1)).insertUser("Paul","Pogba" );
 	}
 
 	@Test

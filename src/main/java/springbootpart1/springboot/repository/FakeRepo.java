@@ -1,4 +1,4 @@
-package springbootpart1.springboot.dao;
+package springbootpart1.springboot.repository;
 
 import org.springframework.stereotype.Repository;
 import springbootpart1.springboot.model.User;

@@ -16,19 +16,22 @@ public class UserController {
 
     @PutMapping("/add")
     public ResponseEntity<String> addUser(@RequestBody String userName){
-        userService.addUser(userName.split(" ")[0],userName.split(" ")[1]);
-        return new ResponseEntity<String>("Success!", HttpStatus.CREATED);
+        String name = userName.split(" ")[0];
+        String surname = userName.split(" ")[1];
+        userService.addUser(name,surname);
+        return new ResponseEntity<String>(String.format("%s added", name), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<String> getUser(@PathVariable(value="id")long userId){
-        return new ResponseEntity<String>(userService.getUser(userId), HttpStatus.OK);
-
+        String name = userService.getUser(userId);
+        return new ResponseEntity<String>(String.format("Hello %s", name), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable(value ="id") long userId){
+        String name = userService.getUser(userId);
         userService.removeUser(userId);
-        return new ResponseEntity<String>("Success!", HttpStatus.OK);
+        return new ResponseEntity<String>(String.format("%s removed", name), HttpStatus.OK);
     }
 }

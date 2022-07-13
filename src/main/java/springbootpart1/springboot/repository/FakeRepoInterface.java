@@ -1,4 +1,4 @@
-package springbootpart1.springboot.dao;
+package springbootpart1.springboot.repository;
 
 
 public interface FakeRepoInterface {
