@@ -16,11 +16,25 @@ public class WebSecurityConfigurerTest {
     @Autowired
     private TestRestTemplate template;
 
+    @Test
+    public void userNameAndPasswordShouldNotWorkForInValidURL() throws Exception {
+        ResponseEntity<String> response = template.withBasicAuth("user", "password")
+                .getForEntity("/someurl", String.class);
+                assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
 
     @Test
-    public void securityTest() throws Exception {
-        ResponseEntity<String> result = template.withBasicAuth("spring", "secret")
-                .getForEntity("/user", String.class);
-                assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
+    public void userNameAndPasswordShouldNotWorkUnathorizedUser(){
+        ResponseEntity<String> response = template.withBasicAuth("user","wrongpassword")
+                .getForEntity("/user/1",String.class);
+                assertEquals(HttpStatus.UNAUTHORIZED,response.getStatusCode());
     }
+
+    @Test
+    public void userNameAndPasswordShouldWorkForValidURL(){
+        ResponseEntity<String> response = template.withBasicAuth("user","password")
+                .getForEntity("/user/1",String.class);
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+    }
+
 }

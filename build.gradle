@@ -19,6 +19,9 @@ dependencies {
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-web'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'junit:junit:4.13.1'
 }
 
 tasks.named('test') {

@@ -4,21 +4,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import springbootpart1.springboot.dao.FakeRepo;
+import springbootpart1.springboot.repository.FakeRepoInterface;
 
 @Service
 public class UserServiceImpl implements UserService{
 
-    private final FakeRepo fakeRepo;
+    private final FakeRepoInterface fakeRepo;
 
     @Autowired
-    public UserServiceImpl(@Qualifier("fakeRepo") FakeRepo fakeRepo) {
+    public UserServiceImpl(@Qualifier("fakeRepo") FakeRepoInterface fakeRepo) {
         this.fakeRepo = fakeRepo;
     }
 
     @Override
     public void addUser(String name, String surname) {
-        fakeRepo.insertUser(121, name, surname);
+        fakeRepo.insertUser(name, surname);
         System.out.println(name + " Entered");
     }
 
@@ -30,9 +30,8 @@ public class UserServiceImpl implements UserService{
 
     @Cacheable("name")
     @Override
-    public void getUser(long id) {
+    public String getUser(long id) {
         String name =  fakeRepo.findUserById(id);
-
         try
         {
             System.out.println("Going to sleep for 5 Secs.. to simulate backend call.");
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService{
         {
             e.printStackTrace();
         }
-        System.out.println("Hello "+name);
+        return name;
     }
 
 }

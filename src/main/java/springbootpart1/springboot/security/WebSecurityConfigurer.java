@@ -1,34 +1,36 @@
-package springbootpart1.springboot;
+package springbootpart1.springboot.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+@EnableWebSecurity
 @Configuration
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // COMPLETE CODE HERE
         PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         auth.inMemoryAuthentication()
                 .passwordEncoder(encoder)
-                .withUser("spring")
-                .password(encoder.encode("secret"))
+                .withUser("user")
+                .password(encoder.encode("password"))
                 .roles("USER");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/user/**")
+                .antMatchers("/private")
                 .authenticated()
-                .antMatchers("/user/**")
+                .antMatchers("/public")
                 .permitAll()
                 .and()
                 .httpBasic();
+        http.csrf().disable();
     }
 }
